@@ -3,9 +3,9 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
-const routes = require("./routes");
+const routes = require("./src/routes");
 
-const connectToDatabase = require("./database/database");
+const connectToDatabase = require("./src/database/database");
 
 connectToDatabase();
 
