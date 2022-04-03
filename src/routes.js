@@ -9,5 +9,6 @@ routes.get('/', (request, response) => {
 
 routes.get('/user/', UserController.getAll);
 routes.post('/user/create/', UserController.create);
+routes.post('/user/', UserController.login);
 
 module.exports = routes;

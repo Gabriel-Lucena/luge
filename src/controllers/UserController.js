@@ -24,7 +24,7 @@ module.exports = {
         .json({ error: 'Invalid username or password' });
     }
 
-    const exists = User.find({ username: username, password: md5(password) }, { username: 1 });
+    const exists = User.find({ username: username, password: md5(password) });
 
     if (!exists) {
       const hashedPassword = md5(password);
@@ -45,5 +45,22 @@ module.exports = {
     } else {
       return response.status(409).json({ message: 'User already exists' });
     }
+  },
+
+  async login(request, response) {
+    const { username, password } = request.body;
+
+    User.findOne({ username: username, password: password }, function (err, user) {
+      if (err) {
+        console.log(err);
+        return response.status(500).send();
+      }
+
+      if (!user) {
+        return response.status(404).json({ message: 'Username or password wrong' });
+      }
+
+      return response.status(200).json({ message: 'User logged in successfully' });
+    });
   },
 };
