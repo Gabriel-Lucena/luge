@@ -13,5 +13,6 @@ routes.post('/user/create/', UserController.create);
 routes.post('/user/', UserController.login);
 
 routes.post('/task/', TaskController.create);
+routes.get('/task/:idUser/', TaskController.getAllById);
 
 module.exports = routes;

@@ -18,10 +18,7 @@ module.exports = {
     const { username, password } = request.body;
 
     if (!username || !password) {
-      return response
-        .status(400)
-
-        .json({ error: 'Invalid username or password' });
+      return response.status(400).json({ error: 'Invalid username or password' });
     }
 
     const exists = User.find({ username: username, password: md5(password) });
@@ -40,7 +37,7 @@ module.exports = {
 
         return response.status(201).json({ message: 'User added successfully' });
       } catch (err) {
-        response.status(400).json({ error: err.message });
+        return response.status(400).json({ error: err.message });
       }
     } else {
       return response.status(409).json({ message: 'User already exists' });
