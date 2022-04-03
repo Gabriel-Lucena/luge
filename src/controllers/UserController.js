@@ -1,10 +1,11 @@
 const User = require('../models/User');
 const { request } = require('express');
 const { v4: uuid } = require('uuid');
+const md5 = require('md5');
 
 module.exports = {
   async getAll(request, response) {
-    User.find({}, function (err, result) {
+    User.find({}, { username: 1 }, function (err, result) {
       if (err) {
         console.log(err);
       } else {
@@ -23,10 +24,12 @@ module.exports = {
         .json({ error: 'Invalid username or password' });
     }
 
+    const hashedPassword = md5(password);
+
     const user = new User({
       _id: uuid(),
       username,
-      password,
+      password: hashedPassword,
     });
 
     try {
