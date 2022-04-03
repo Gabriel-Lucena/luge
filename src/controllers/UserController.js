@@ -5,7 +5,7 @@ const md5 = require('md5');
 
 module.exports = {
   async getAll(request, response) {
-    User.find({}, { username: 1 }, function (err, result) {
+    User.find({}, { username: 1, _id: 0 }, function (err, result) {
       if (err) {
         console.log(err);
       } else {
@@ -24,20 +24,26 @@ module.exports = {
         .json({ error: 'Invalid username or password' });
     }
 
-    const hashedPassword = md5(password);
+    const exists = User.find({ username: username, password: md5(password) }, { username: 1 });
 
-    const user = new User({
-      _id: uuid(),
-      username,
-      password: hashedPassword,
-    });
+    if (!exists) {
+      const hashedPassword = md5(password);
 
-    try {
-      await user.save();
+      const user = new User({
+        _id: uuid(),
+        username,
+        password: hashedPassword,
+      });
 
-      return response.status(201).json({ message: 'User added successfully' });
-    } catch (err) {
-      response.status(400).json({ error: err.message });
+      try {
+        await user.save();
+
+        return response.status(201).json({ message: 'User added successfully' });
+      } catch (err) {
+        response.status(400).json({ error: err.message });
+      }
+    } else {
+      return response.status(409).json({ message: 'User already exists' });
     }
   },
 };
