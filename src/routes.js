@@ -2,6 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 const UserController = require('./controllers/UserController');
+const TaskController = require('./controllers/TaskController');
 
 routes.get('/', (request, response) => {
   response.send('Olá');
@@ -10,5 +11,7 @@ routes.get('/', (request, response) => {
 routes.get('/user/', UserController.getAll);
 routes.post('/user/create/', UserController.create);
 routes.post('/user/', UserController.login);
+
+routes.post('/task/', TaskController.create);
 
 module.exports = routes;
