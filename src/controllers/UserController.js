@@ -4,12 +4,13 @@ const { v4: uuid } = require('uuid');
 
 module.exports = {
   async getAll(request, response) {
-    try {
-      const users = User.find;
-      return response.status(200).json({ users });
-    } catch (err) {
-      response.status(500).json({ error: err.message });
-    }
+    User.find({}, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        response.json(result);
+      }
+    });
   },
 
   async create(request, response) {
