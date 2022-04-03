@@ -50,7 +50,7 @@ module.exports = {
   async login(request, response) {
     const { username, password } = request.body;
 
-    User.findOne({ username: username, password: password }, function (err, user) {
+    User.findOne({ username, password: md5(password) }, { _id: 1 }, function (err, user) {
       if (err) {
         console.log(err);
         return response.status(500).send();
@@ -60,7 +60,7 @@ module.exports = {
         return response.status(404).json({ message: 'Username or password wrong' });
       }
 
-      return response.status(200).json({ message: 'User logged in successfully' });
+      return response.status(200).json({ message: 'User logged in successfully', user });
     });
   },
 };
