@@ -36,7 +36,7 @@ router.post('/user/login', (req, res) => {
     }
 
   }).then((user) => {
-    res.status(200).json(user.idUser);
+    res.status(200).json(user[0].idUser);
   })
 
 });

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const app = express();
@@ -7,12 +9,14 @@ app.use(express.urlencoded({
   extended: true
 }));
 
-const userController = require('./controller/UserController');
+const userController = require('./src/controller/UserController');
 app.use('/', userController);
 
-const taskController = require('./controller/TaskController');
+const taskController = require('./src/controller/TaskController');
 app.use('/', taskController);
 
-app.listen(3000, () => {
-  console.log('Server listening on port: http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`😳 Server listening on port: http://localhost:${PORT} 😳`);
 });
