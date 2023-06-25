@@ -1,22 +1,18 @@
-require('dotenv').config();
-
 const express = require('express');
-const mongoose = require('mongoose');
-
-const routes = require('./src/routes');
-
-const connectToDatabase = require('./src/database/database');
-
-connectToDatabase();
 
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
+const userController = require('./controller/UserController');
+app.use('/', userController);
 
-const PORT = process.env.PORT || 3000;
+const taskController = require('./controller/TaskController');
+app.use('/', taskController);
 
-app.use(routes);
-
-app.listen(PORT, () => {
-  console.log(`😳  Escutando na porta: http://localhost:${PORT} 😳`);
+app.listen(3000, () => {
+  console.log('Server listening on port: http://localhost:3000');
 });
