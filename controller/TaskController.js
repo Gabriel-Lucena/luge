@@ -12,17 +12,17 @@ router.post('/task/', (req, res) => {
 
   const {
     idUser,
-    username,
-    password
+    name,
+    string
   } = req.body;
 
   task.create({
 
-    username: username,
-    password: password,
-    idUser: idUser,
+    tblUserIdUser: idUser,
+    name: name,
+    string: string
 
-  }).then(() => {
+  }).then((task) => {
     res.status(200).json(task)
   });
 
@@ -35,11 +35,16 @@ router.post('/task/', (req, res) => {
 
 router.get('/task/:idUser', (req, res) => {
 
+  const {
+    idUser
+  } = req.params;
+
   task.findAll({
 
     where: {
-      idUser: idUser
+      tblUserIdUser: idUser
     },
+
   }).then((task) => {
     res.status(200).json(task);
 
@@ -54,27 +59,15 @@ router.get('/task/:idUser', (req, res) => {
 router.put('/task/', (req, res) => {
 
   const {
-    idUser,
+    status,
     idTask
   } = req.body;
 
-  let task;
-
-  task.findAll({
-
-    where: {
-      idUser: idUser
-    }
-
-  }).then(() => {
-    task = task.status;
-  })
-
-  if (task) {
+  if (status) {
 
     task.update({
 
-        status: false,
+        status: 0
       }, {
         where: {
           idTask: idTask
@@ -91,7 +84,7 @@ router.put('/task/', (req, res) => {
 
     task.update({
 
-        status: true,
+        status: 1,
       }, {
         where: {
           idTask: idTask

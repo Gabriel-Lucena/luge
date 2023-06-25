@@ -1,7 +1,7 @@
 {
   "name": "luge",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000l\u0000u\u0000g\u0000e\u0000\r\u0000 \u0000",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

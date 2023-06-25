@@ -1,10 +1,10 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
-const connection = require("../database/database.js");
+const connection = require('../database/database.js');
 
-const User = require("./User.js");
+const User = require('./User.js');
 
-const Task = connection.define("tblTask", {
+const Task = connection.define('tblTask', {
 
   idTask: {
     type: Sequelize.INTEGER(10),
@@ -15,7 +15,7 @@ const Task = connection.define("tblTask", {
   },
 
   name: {
-    type: Sequelize.INTEGER(10),
+    type: Sequelize.STRING(25),
     allowNull: false,
   },
 
