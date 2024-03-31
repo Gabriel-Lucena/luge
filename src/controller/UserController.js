@@ -27,6 +27,7 @@ router.post('/user/login', (req, res) => {
     password
   } = req.body;
 
+
   user.findAll({
 
     attributes: ['idUser'],
@@ -36,9 +37,12 @@ router.post('/user/login', (req, res) => {
     }
 
   }).then((user) => {
-    res.status(200).json(user[0].idUser);
+    try {
+      res.status(200).json(user[0].idUser);
+    } catch (error) {
+      res.status(200).json(0);
+    }
   })
-
 });
 
 /**
