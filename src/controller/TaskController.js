@@ -63,11 +63,10 @@ router.put('/task/', (req, res) => {
     idTask
   } = req.body;
 
-  if (status) {
-
+  if (status == "true") {
     task.update({
 
-        status: 0
+        status: 1
       }, {
         where: {
           idTask: idTask
@@ -84,7 +83,7 @@ router.put('/task/', (req, res) => {
 
     task.update({
 
-        status: 1,
+        status: 0,
       }, {
         where: {
           idTask: idTask
