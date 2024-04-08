@@ -57,13 +57,20 @@ router.post('/user/', (req, res) => {
   } = req.body;
 
   user.create({
-    username: username,
-    password: password
-  }).then(() => {
-    res.status(200).json({
-      MSG: 'Created successfully!'
+      username: username,
+      password: password
+    }).then(() => {
+      res.status(200).json({
+        MSG: 'Created successfully!'
+      });
+    })
+    .catch(error => {
+      console.error(error);
+
+      res.status(409).json({
+        MSG: 'Usuário já existe!'
+      });
     });
-  });
 
 });
 
