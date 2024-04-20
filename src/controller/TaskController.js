@@ -28,6 +28,28 @@ router.post('/task/', (req, res) => {
 
 });
 
+/**
+ * Delete a task
+ */
+
+router.delete('/task/', (req, res) => {
+
+  const {
+    idUser,
+    idTask
+  } = req.body;
+
+  task.destroy({
+
+    where: {
+      tblUserIdUser: idUser,
+      idTask: idTask
+    },
+
+  }).then((task) => {
+    res.status(200).json(task);
+  });
+});
 
 /**
  * Search for tasks by id
